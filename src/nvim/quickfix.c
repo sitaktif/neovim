@@ -3095,14 +3095,14 @@ static void qf_fill_buffer(qf_info_T *qi, buf_T *buf, qfline_T *old_last)
       } else {
         len = 0;
       }
-      IObuff[len++] = '|';
+      IObuff[len++] = ':';
 
       if (qfp->qf_lnum > 0) {
         sprintf((char *)IObuff + len, "%" PRId64, (int64_t)qfp->qf_lnum);
         len += (int)STRLEN(IObuff + len);
 
         if (qfp->qf_col > 0) {
-          sprintf((char *)IObuff + len, " col %d", qfp->qf_col);
+          sprintf((char *)IObuff + len, ":%d", qfp->qf_col);
           len += (int)STRLEN(IObuff + len);
         }
 
@@ -3113,7 +3113,6 @@ static void qf_fill_buffer(qf_info_T *qi, buf_T *buf, qfline_T *old_last)
         qf_fmt_text(qfp->qf_pattern, IObuff + len, IOSIZE - len);
         len += (int)STRLEN(IObuff + len);
       }
-      IObuff[len++] = '|';
       IObuff[len++] = ' ';
 
       /* Remove newlines and leading whitespace from the text.
